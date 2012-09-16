@@ -1,0 +1,11 @@
+<% if @path == @new_path -%>
+
+$(".inline-form input[type='text']").remove();
+<% entry = @fsm.make_file_obj(File.join(@fsm.current_path, @new_entry)) %>
+$("td[data-filename='<%=@entry%>']").parent('tr').html('<%= j render( :partial => 'uplodar/browser/entry', :locals => { :entry => entry }) %>');
+
+<% else -%>
+
+$("td[data-filename='<%=@entry%>']").parent('tr').remove();
+
+<% end -%>

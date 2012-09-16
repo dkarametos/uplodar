@@ -1,0 +1,30 @@
+<%- model_class = Uplodar::Share -%>
+<div class="page-header">
+  <h1>Shares</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Path</th>
+      <th>URL</th>      
+    </tr>
+  </thead>
+  <tbody>
+    <% @shares.each do |share| %>
+      <tr>
+        <td><%= share.name %></td>
+        <td><%= share.path %></td>
+        <td>
+          <%= share.url %>
+          <span class="pull-right">
+            <%= link_to 'Details',  share,                    :class => 'btn btn-primary btn-mini' %>
+            <%= link_to "Edit",     edit_share_path(share),   :class => 'btn btn-primary btn-mini' %>
+            <%= link_to "Delete",   share_path(share),        :class => 'btn btn-mini btn-danger',  :method => :delete,  :data => { :confirm => 'Are you sure?'} %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "Create Share", new_share_path, :class => 'btn btn-primary' %>

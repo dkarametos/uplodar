@@ -1,0 +1,6 @@
+<%# publish_to "/browser/list" do %>
+  <% @fsm.setup %>
+  $("#main-content").html('<%= j render('uplodar/browser/index') %>');
+  fileupload();
+  dnd();
+<%# end %>

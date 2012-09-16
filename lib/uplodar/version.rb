@@ -1,3 +1,3 @@
 module Uplodar
-  VERSION = "0.0.1"
+  VERSION = "0.4.0beta"
 end

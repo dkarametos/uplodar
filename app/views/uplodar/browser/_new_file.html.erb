@@ -1,0 +1,30 @@
+<div class="pull-right" style="margin-left: 5px;">
+  <%= simple_form_for :browser, :url => browser_create_path, :html => { :multipart => true, :id => "fileupload" } do |f| %>
+    <span class="btn btn-primary btn-small fileinput-button" style="height: 18px;line-height: 18px;margin-top: 2px;">
+    <span>Upload File</span>
+      <%= f.hidden_field :format, :value => 'js'              %>
+      <%= f.hidden_field :path,   :value => @fsm.current_path %>
+      <%= f.hidden_field :share,  :value => @fsm.share.name   %>
+      <%= f.hidden_field :path,   :value => @fsm.path         %>
+
+      <%= f.file_field :new_file, :multiple => false %>
+    </span>
+  <% end %>
+</div>
+
+<div class="pull-right">
+<%= simple_form_for :browser,:url   => browser_create_path, :remote => true, :html => { :class => 'form-inline' } do |f| %>
+  <%= f.hidden_field :share, :value => @fsm.share.name  %>
+  <%= f.hidden_field :path,  :value => @fsm.path        %>
+
+  <%= f.input_field :new_dir,  :placeholder => "Directory Name", :class => "input-medium" %>
+
+  <%= f.button :submit, "Create Directory", :class => 'btn-primary btn-small' %>
+<% end %>
+</div>
+
+<div style="width: 100%; height: 50px;margin-right: 10px;display: none;">
+  <div class="progress progress-striped active">
+    <div class="bar" style="width: 0%;"></div>
+  </div>
+</div>

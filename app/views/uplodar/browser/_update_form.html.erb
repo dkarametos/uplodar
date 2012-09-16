@@ -1,0 +1,6 @@
+<%= simple_form_for :browser, :url => browser_update_path, :remote => true, :html => { :class => 'inline-form' } do |f| %>  
+  <%= f.hidden_field :share, :value => @fsm.share.name   %>
+  <%= f.hidden_field :path,  :value => @fsm.path         %>
+  <%= f.hidden_field :entry, :value => @entry            %>
+  <%= f.input_field :new_entry, :class => "input-medium" %>
+<% end %>

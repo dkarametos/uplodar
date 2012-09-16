@@ -1,0 +1,23 @@
+<ul class="breadcrumb">
+  
+  <% arr = [] %>
+  <% first = @fsm.breadcrumps.shift %>
+  
+  <% if  @fsm.breadcrumps.empty? %>
+    <%= content_tag :li, first, :class => 'active' %>
+  <% else %>
+    <% last  = @fsm.breadcrumps.pop  %>
+
+    <%= link_to first, browser_path(:share => first) %>
+    <% arr << first %>
+    <span class="divider">/</span>   
+
+    <% @fsm.breadcrumps.each do |bc| %>    
+      <%= content_tag :li, link_to(bc, browser_path(:share => arr, :path => bc)) %>
+      <% arr << bc %>
+      <span class="divider">/</span>    
+    <% end %>
+
+    <%= content_tag(:li, last, :class => 'active') unless last.blank? %>
+  <% end %>
+</ul>

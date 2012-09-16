@@ -1,0 +1,25 @@
+<td data-filename="<%=  entry[:name] %>" data-mime="<%= entry[:type] %>" data-size="<%= number_to_human_size entry[:size] %>">
+  <i class="<%= entry_icon(entry[:type]) %>"></i>
+  <span class="filename">
+  <% if entry[:type] == 'directory' %>
+    <%= link_to entry[:name], browser_path(@fsm.current_lpath, entry[:name]) %>
+  <% else -%>
+      <%= entry[:name] %> <small>(<%= number_to_human_size entry[:size] %>)</small>
+  <% end -%>
+  </span>
+  
+  <span class="pull-right btn-row" style="display:none;">
+    
+    <% if entry[:type] != 'directory' %>
+    <button class='btn btn-mini btn-url' type="button" data-toggle="button" ><i class="icon-globe"></i></button>
+    <% end -%>  
+    
+    <%= link_to "<i class=\"icon-pencil\"></i>".html_safe, '#', :class => 'btn btn-mini btn-rename' %>    
+    <%= link_to "<i class=\"icon-remove-sign\"></i>".html_safe,
+                browser_delete_path(@fsm.share.name, @fsm.path, entry[:name]),
+                :method => :delete,
+                :data => { :confirm => 'Are you sure?' },
+                :remote => true,
+                :class => 'btn btn-mini btn-danger' %>
+  </span>      
+</td>

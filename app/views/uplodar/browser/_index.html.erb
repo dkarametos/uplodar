@@ -1,0 +1,19 @@
+<div class="row-fluid">
+  <div class="span12">
+    <%= render 'uplodar/browser/new_file' %>
+  </div>
+</div>
+
+<%= render 'uplodar/browser/breadcrumb' %>
+<table class="table table-bordered table-condensed table-hover draggable_table fs_table" 
+  data-share="<%= @fsm.share.name %>" 
+  data-path="<%= @fsm.path %>" 
+  data-url="<%= @fsm.current_url %>"
+  data-suburi="<%= @suburi %>">
+  <thead>
+    <tr><th>Files</th></tr>
+  </thead>
+  <tbody>
+  <%= render :partial => 'uplodar/browser/entries', :collection => @fsm.entries,  :as => :entry %> 
+  </tbody>
+</table>

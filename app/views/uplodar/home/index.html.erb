@@ -1,0 +1,18 @@
+<% if @shares.blank? %>
+  <div class="page-header"><h1>No shares are available</h1></div>
+<% else -%>
+  <table class="table table-bordered">
+    <tbody>
+      <% @shares.each do |share| %>
+        <%=  content_tag :tr do %>
+          <%= content_tag :td do %>
+            <h3>
+              <i class="icon-list-alt"></i>
+              <%= link_to share.name, browser_path(:share => share.name) %>
+            </h3>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end -%>

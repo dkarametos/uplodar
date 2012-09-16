@@ -1,0 +1,9 @@
+$("td[data-filename='<%=@entry%>']").html('<%= j render('uplodar/browser/update_form') %>');
+
+$(".inline-form input[type='text']").val('<%=@entry%>');
+
+$(".inline-form input[type='text']").focus();
+
+$(".inline-form input[type='text']").blur(function(){
+  $(this).parent('form').submit();  
+});

@@ -1,0 +1,3 @@
+<tr class="<%=  entry[:type] == 'directory' ? 'droppable' : '' %>">
+<%= render :partial => 'uplodar/browser/entry', :locals => {:entry => entry} %>
+</tr>
