@@ -3,11 +3,12 @@ require 'pathname'
 require 'open-uri'
 
 module Uplodar
-
   class FsManager
-    attr_reader :share, :path, 
+    attr_reader :share, :path,
       :current_path, :current_url, :current_lpath, 
       :breadcrumps, :dirs, :files
+
+    VALID_CHARACTERS = "a-zA-Z0-9~!@$%^&*()#`_+-=<>\"{}|[];',?".freeze
 
     def initialize(share, path = nil)
       @share, @path = share, path
@@ -30,7 +31,7 @@ module Uplodar
 
       return nil unless ['directory', 'file'].include? ptype
 
-      { :name => pname.basename, :type => ptype, :size => pname.size } 
+      { :name => pname.basename, :type => ptype, :size => pname.size }
     end
 
 
@@ -139,7 +140,7 @@ module Uplodar
     end
 
     def self.valid_path?(path)
-      path == Pathname.new(path).cleanpath.to_s
+      path == Pathname.new(path.tr("^#{VALID_CHARACTERS}", '')).cleanpath.to_s
     end
 
   end

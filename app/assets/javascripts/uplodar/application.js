@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery-fileupload/basic
+//= require dataTables/jquery.dataTables
 //= require twitter/bootstrap
 //= require_tree .
 
@@ -135,5 +136,6 @@ $(document).ready(function(){
   $("table.fs_table>tbody>tr").live('mouseleave', function(e){
     $(this).children('td').children('span.btn-row').hide();
   });
+
 
 });

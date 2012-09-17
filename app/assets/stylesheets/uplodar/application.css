@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require jquery.fileupload-ui
+ *= require dataTables/jquery.dataTables
  *= require_tree .
  */
