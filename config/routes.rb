@@ -1,5 +1,6 @@
 Uplodar::Engine.routes.draw do
 
+  resources :events
   resources :shares
 
   match '/browser/'                           => 'browser#create', :as => :browser_create, :via => :post

@@ -115,7 +115,7 @@ $(document).ready(function(){
     path   = $(this).closest('table').data('path');
     entry  = $(this).closest('td').data('filename');
     url    = (path == '') ? share : share +'/'+path ;
-    url    = '/browser/edit/' + url + '/' + entry;
+    url    = 'browser/edit/' + url + '/' + entry;
 
     if(suburi != '')
       url = suburi + url

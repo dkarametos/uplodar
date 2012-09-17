@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Share</th>
+      <th>Action</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.created_at.to_s(:long) %></td>
+        <td><%= event.username  %></td>
+        <td><%= event.sharename %></td>
+        <td><%= event.action %></td>
+        <td>
+          <%= event.msg[0..120] %>
+          <%= '...' if event.msg.size > 120 %>
+          <%#= link_to 'Show', event, :class => 'btn btn-primary btn-mini' %>
+        </td>
+      </tr>
+    <% end %>    
+  </tbody>
+</table>
+<%= paginate @events, :remote => true %>

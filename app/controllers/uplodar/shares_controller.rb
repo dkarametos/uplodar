@@ -22,9 +22,9 @@ module Uplodar
 
       respond_to do |format|
         if @share.save
-          format.html { redirect_to @share, notice: 'Share was successfully created.' }
+          format.html { redirect_to @share, :notice => 'Share was successfully created.' }
         else
-          format.html { render action: "new" }
+          format.html { render :action => "new" }
         end
       end
     end
@@ -34,9 +34,9 @@ module Uplodar
 
       respond_to do |format|
         if @share.update_attributes(params[:share])
-          format.html { redirect_to @share, notice: 'Share was successfully updated.' }
+          format.html { redirect_to @share, :notice =>  'Share was successfully updated.' }
         else
-          format.html { render action: "edit" }
+          format.html { render :action => "edit" }
         end
       end
     end

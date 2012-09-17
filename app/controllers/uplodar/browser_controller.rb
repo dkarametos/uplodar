@@ -11,11 +11,11 @@ module Uplodar
 
       if !params[:browser][:new_file].blank?
         FsManager.save_file(@fsm.current_path, params[:browser][:new_file])
-        #write_event("Upload", "#{File.join(@fsm.current_path, params[:browser][:new_file].original_filename)}")
+        write_event("Upload", "#{File.join(@fsm.current_path, params[:browser][:new_file].original_filename)}")
 
       elsif !params[:browser][:new_dir].blank?
         FsManager.make_dir(@fsm.current_path, params[:browser][:new_dir])
-        #write_event("Create", "#{File.join(@fsm.current_path, params[:browser][:new_dir])}")
+        write_event("Create", "#{File.join(@fsm.current_path, params[:browser][:new_dir])}")
 
       else
         redirect_to root_url && return
@@ -37,7 +37,7 @@ module Uplodar
       @new_entry = params[:browser][:new_entry].blank? ? @entry : params[:browser][:new_entry]
 
       FsManager.move(File.join(@path, @entry), File.join(@new_path, @new_entry))
-      #write_event("Move", "#{File.join(@path, @entry)} --> #{File.join(@new_path, @new_entry)}")
+      write_event("Move", "#{File.join(@path, @entry)} --> #{File.join(@new_path, @new_entry)}")
     end
 
 
@@ -45,7 +45,7 @@ module Uplodar
       setup(params[:share], params[:path])
 
       FsManager.delete(@fsm.current_path, params[:entry])
-      #write_event("Delete", "#{File.join(@fsm.current_path, params[:entry])}")
+      write_event("Delete", "#{File.join(@fsm.current_path, params[:entry])}")
     end
 
     private
