@@ -33,6 +33,7 @@ module Uplodar
       @path      = @fsm.current_path
       @new_path  = params[:browser][:new_path].blank? ? @path : File.join(@fsm.current_path, params[:browser][:new_path])
 
+      #TODO: this has to be reviewd
       @entry     = params[:browser][:entry]
       @new_entry = params[:browser][:new_entry].blank? ? @entry : params[:browser][:new_entry]
 
