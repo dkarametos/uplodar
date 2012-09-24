@@ -2,6 +2,7 @@ Uplodar::Engine.routes.draw do
 
   resources :events
   resources :shares
+  resources :permissions, :controller => 'users'
 
   match '/browser/'                           => 'browser#create', :as => :browser_create, :via => :post
   match '/browser/edit/:share(/*path)/:entry' => 'browser#edit',   :as => :browser_edit,   :via => :get,    :constraints => {:entry => /.*/}

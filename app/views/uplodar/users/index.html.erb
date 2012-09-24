@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1>Users</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= Uplodar.display_user_name %></th>
+      <th>Shares</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+    <td><%= user.send Uplodar.display_user_name %></td>
+    <td>
+      <%= user.cached_shares.blank? ? 'No shares assigned' : user.cached_shares %>
+      <span class="pull-right">
+        <%= link_to 'Details', permission_path(user),        :class => 'btn btn-primary btn-mini' %>
+        <%#= link_to 'Become',  become_user_path(user) , :class => 'btn btn-primary btn-mini' %>
+        <%= link_to 'Edit',    edit_permission_path(user) ,   :class => 'btn btn-primary btn-mini' %>
+        <%= link_to 'Delete',  permission_path(user),         :class => 'btn btn-mini btn-danger', :method => :delete, :data => { :confirm => 'Are you sure?'} %>
+      </span>
+    </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
