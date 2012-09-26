@@ -16,8 +16,8 @@ module Uplodar
         #Uplodar.user_class.has_many :forem_posts,  :class_name => "Uplodar::Post",   :foreign_key => "user_id"
         #Uplodar.user_class.has_many :forem_topics, :class_name => "Uplodar::Topic",           :foreign_key => "user_id"
 
-        Uplodar.user_class.has_many :share_assignments, :class_name => "Uplodar::ShareAssignment", :foreign_key => "user_id"
-        Uplodar.user_class.has_many :shares, :through => :share_assignments, :class_name => "Uplodar::Share", :source => :share
+        Uplodar.user_class.has_many :share_assignments, :class_name => "Uplodar::ShareAssignment", :foreign_key => "user_id", :dependent => :destroy
+        Uplodar.user_class.has_many :shares, :through => :share_assignments, :class_name => "Uplodar::Share", :source => :share, :dependent => :destroy
 
         Uplodar.user_class.has_many :events, :class_name => "Uplodar::Event"
       end

@@ -19,19 +19,10 @@ module Uplodar
 
       respond_to do |format|
         if @user.update_attributes(params[:user])
-          format.html { redirect_to @user, :notice =>  'User was successfully updated.' }
+          format.html { redirect_to permissions_url, :notice =>  'User was successfully updated.' }
         else
           format.html { render :action => "edit" }
         end
-      end
-    end
-
-    def destroy
-      @user = Uplodar.user_class.find(params[:id])
-      @user.destroy
-
-      respond_to do |format|
-        format.html { redirect_to users_url }
       end
     end
   end

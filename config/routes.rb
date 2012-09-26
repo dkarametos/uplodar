@@ -1,8 +1,12 @@
 Uplodar::Engine.routes.draw do
 
+  resources :share_assignments
+
   resources :events
   resources :shares
-  resources :permissions, :controller => 'users'
+  resources :permissions, :controller => 'users' do 
+    resources :shares, :controller => 'share_assignments'
+  end
 
   match '/browser/'                           => 'browser#create', :as => :browser_create, :via => :post
   match '/browser/edit/:share(/*path)/:entry' => 'browser#edit',   :as => :browser_edit,   :via => :get,    :constraints => {:entry => /.*/}

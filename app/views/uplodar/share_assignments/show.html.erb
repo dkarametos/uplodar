@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h2>Shares for <%= @user.send Uplodar.display_user_name %></h2>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Shares</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td> <%= @share.name %> </td>
+    <td>
+      <span class="pull-right">
+        <%= link_to 'Details', permission_share_path(@user, @share), :class => 'btn btn-primary btn-mini' %>
+      </span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_permission_share_path(@user, @share) %> |
+<%= link_to 'Back', permission_shares_path %>
