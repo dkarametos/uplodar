@@ -2,55 +2,46 @@ require_dependency "uplodar/application_controller"
 
 module Uplodar
   class ShareAssignmentsController < ApplicationController
+    before_filter :get_user
+
     def index
-      @user = Uplodar.user_class.find(params[:permission_id])
-      @shares = @user.shares.all
+      @shares = @user.share_assignments.select('uplodar_shares.id, uplodar_share_assignments.write, uplodar_shares.name').joins(:share)
     end
 
     def show
-      @user = Uplodar.user_class.find(params[:permission_id])
-      @share = @user.shares.find(params[:id])
-    end
-
-    def new
-      @share_assignment = ShareAssignment.new
-    end
-
-    def edit
-      @share_assignment = ShareAssignment.find(params[:id])
-    end
-
-    def create
-      @share_assignment = ShareAssignment.new(params[:share_assignment])
-
-      respond_to do |f|
-        if @share_assignment.save
-          f.html { redirect_to @share_assignment, :notice => 'Share assignment was successfully created.' }
-        else
-          f.html { render :action => "new" }
-        end
-      end
+      @share      = @user.shares.find(params[:id])
+      @assignment = @user.share_assignments.where(:share_id => params[:id]).first
     end
 
     def update
-      @share_assignment = ShareAssignment.find(params[:id])
+      @assignment = @user.share_assignments.find(params[:id])
 
       respond_to do |f|
-        if @share_assignment.update_attributes(params[:share_assignment])
-          f.html { redirect_to @share_assignment, :notice => 'Share assignment was successfully updated.' }
+        if @assignment.update_attributes(params[:share_assignment])
+          f.html { redirect_to user_shares_url(@user), :notice => 'Share assignment was successfully updated.' }
         else
-          f.html { render :action => "edit" }
+          f.html { render :action => "show" }
         end
       end
     end
 
-    def destroy
-      @share_assignment = ShareAssignment.find(params[:id])
-      @share_assignment.destroy
+    def assignments
+    end
 
+    def assign
       respond_to do |f|
-        f.html { redirect_to share_assignments_url }
+        if @user.update_attributes(params[:user])
+          f.html { redirect_to user_shares_url(@user), :notice =>  'User was successfully updated.' }
+        else
+          f.html { render :action => "assignments" }
+        end
       end
     end
+
+    private
+    def get_user
+      @user = Uplodar.user_class.find(params[:user_id])
+    end
+
   end
 end

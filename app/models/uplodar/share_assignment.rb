@@ -1,6 +1,6 @@
 module Uplodar
   class ShareAssignment < ActiveRecord::Base
-    attr_accessible :user_id, :share_id
+    attr_accessible :user_id, :share_id, :write
 
     belongs_to :user
     belongs_to :share
