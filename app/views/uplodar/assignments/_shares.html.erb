@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h2>Users for <%= @share.name %></h2>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>can write?</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+    <td><%= user.send Uplodar.display_user_name %></td>
+    <td><%= user.id %></td>
+    <td>
+      <span class="pull-right">
+        <%= link_to 'Details', user_share_path(user, @share), :class => 'btn btn-primary btn-mini' %>
+      </span>
+    </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+<%#= link_to "Assign Share", assignments_user_shares_path(user), :class => 'btn btn-primary' %>

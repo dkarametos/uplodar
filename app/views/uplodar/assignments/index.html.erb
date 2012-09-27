@@ -1,0 +1,5 @@
+<% if !@user.blank? %>
+  <%= render 'users' %>
+<% elsif !@share.blank? %>
+  <%= render 'shares' %>
+<% end %>

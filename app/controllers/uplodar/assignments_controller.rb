@@ -1,11 +1,15 @@
 require_dependency "uplodar/application_controller"
 
 module Uplodar
-  class ShareAssignmentsController < ApplicationController
+  class AssignmentsController < ApplicationController
     before_filter :get_user
 
     def index
-      @shares = @user.share_assignments.select('uplodar_shares.id, uplodar_share_assignments.write, uplodar_shares.name').joins(:share)
+      if !@user.blank?
+        @shares = @user.share_assignments.select('uplodar_shares.id, uplodar_share_assignments.write, uplodar_shares.name').joins(:share)
+      elsif !@share.blank?
+        @users  = @share.share_assignments.select('users.id, uplodar_share_assignments.write, users.email').joins(:user)
+      end
     end
 
     def show
@@ -40,7 +44,8 @@ module Uplodar
 
     private
     def get_user
-      @user = Uplodar.user_class.find(params[:user_id])
+      @user  = Uplodar.user_class.find(params[:user_id])  unless params[:user_id].blank?
+      @share = Share.find(params[:share_id])              unless params[:share_id].blank?
     end
 
   end

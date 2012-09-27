@@ -5,7 +5,8 @@ module Uplodar
     included do
       unless method_defined?(:is_admin?)
         def is_admin?
-          true
+          return admin if self.respond_to? :admin
+          false
         end
       end
       unless method_defined?(:can_browse_with_uplodar?)
