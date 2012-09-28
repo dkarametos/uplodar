@@ -32,22 +32,35 @@ module Uplodar
         end
       end
 
+      def seed_database
+        load "#{Rails.root}/config/initializers/uplodar.rb"
+        unless options["no-migrate"]
+          puts "Creating default forum and topic"
+          Uplodar::Engine.load_seed
+        end
+      end
+
       def mount_engine
-        puts "Mounting Uplodar::Engine at \"/uplodar\" in config/routes.rb..."
-        insert_into_file("#{Rails.root}/config/routes.rb", :after => /routes.draw.do\n/) do
-          %Q{  mount Uplodar::Engine => "/uplodar"\n}
+        unless options["just-migrate"]
+          puts "Mounting Uplodar::Engine at \"/uplodar\" in config/routes.rb..."
+          insert_into_file("#{Rails.root}/config/routes.rb", :after => /routes.draw.do\n/) do
+            %Q{  mount Uplodar::Engine => "/uplodar"\n}
+          end
         end
       end
 
       def run_bootstrap_initializer
-        puts "Installing twitter bootstrap"
-        Rails::Generators.invoke "bootstrap:install", [], :behavior => :invoke, :destination_root => Rails.root
+        unless options["just-migrate"]
+          puts "Installing twitter bootstrap"
+          Rails::Generators.invoke "bootstrap:install", [], :behavior => :invoke, :destination_root => Rails.root
+        end
       end
 
       def run_simple_form_initializer
-        puts "Installing simple_form with bootstrap support"
-        Rails::Generators.invoke "simple_form:install", ["--bootstrap"], :behavior => :invoke, :destination_root => Rails.root
-
+        unless options["just-migrate"]
+          puts "Installing simple_form with bootstrap support"
+          Rails::Generators.invoke "simple_form:install", ["--bootstrap"], :behavior => :invoke, :destination_root => Rails.root
+        end
       end
 
       def finished
@@ -58,11 +71,13 @@ module Uplodar
           output += step("`rake db:migrate` was run, running all the migrations against your database.\n")
         end
 
-        output += step("The engine was mounted in your config/routes.rb file using this line:\n")
-        output += "  mount Uplodar::Engine, :at => \"/uplodar\" \n"
-        output += "If you want to change where the forums are located, just change the \"/forums\" path at the end of this line to whatever you want."
-        output += "\nAnd finally:\n"
-        output += "#{step("We told you that Uplodar has been successfully installed and walked you through the steps.")}"
+        unless options["just-migrate"]
+          output += step("The engine was mounted in your config/routes.rb file using this line:\n")
+          output += "  mount Uplodar::Engine, :at => \"/uplodar\" \n"
+          output += "If you want to change where the forums are located, just change the \"/forums\" path at the end of this line to whatever you want."
+          output += "\nAnd finally:\n"
+          output += "#{step("We told you that Uplodar has been successfully installed and walked you through the steps.")}"
+        end
 
         unless defined?(Devise)
           output += "We have detected you're not using Devise (which is OK with us, really!), so there's one extra step you'll need to do.\n

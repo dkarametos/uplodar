@@ -1,11 +1,9 @@
 Uplodar::Engine.routes.draw do
 
-  resources :events
-
+  resources :events, :only => [:index, :show]
   resources :shares do
     resources :users, :controller => 'assignments', :only => :index
   end
-
   resources :users, :only => :index do
     resources :shares, :controller => 'assignments', :only => [:index, :show, :update] do
       collection do

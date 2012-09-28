@@ -2,6 +2,7 @@ require_dependency "uplodar/application_controller"
 
 module Uplodar
   class EventsController < ApplicationController
+    load_and_authorize_resource
 
     def index
       @events = Event.order("created_at DESC").page(params[:page])
@@ -12,15 +13,6 @@ module Uplodar
     end
 
     def show
-      @event = Event.find(params[:id])
-    end
-
-    def destroy
-      @event.destroy
-
-      respond_to do |format|
-        format.html { redirect_to events_url }
-      end
     end
   end
 end

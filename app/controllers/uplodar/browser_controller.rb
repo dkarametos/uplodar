@@ -2,12 +2,16 @@ require_dependency "uplodar/application_controller"
 
 module Uplodar
   class BrowserController < ApplicationController
+    before_filter :authenticate_user!
+
     def index
       setup(params[:share], params[:path])
+      authorize! :read, @share
     end
 
     def create
       setup(params[:browser][:share], params[:browser][:path])
+      authorize! :write, @share
 
       if !params[:browser][:new_file].blank?
         FsManager.save_file(@fsm.current_path, params[:browser][:new_file])
@@ -24,11 +28,13 @@ module Uplodar
 
     def edit
       setup(params[:share], params[:path])
+      authorize! :write, @share
       @entry  = params[:entry]
     end
 
     def update
       setup(params[:browser][:share], params[:browser][:path])
+      authorize! :write, @share
 
       @path      = @fsm.current_path
       @new_path  = params[:browser][:new_path].blank? ? @path : File.join(@fsm.current_path, params[:browser][:new_path])
@@ -44,6 +50,7 @@ module Uplodar
 
     def delete
       setup(params[:share], params[:path])
+      authorize! :write, @share
 
       FsManager.delete(@fsm.current_path, params[:entry])
       write_event("Delete", "#{File.join(@fsm.current_path, params[:entry])}")
@@ -52,7 +59,7 @@ module Uplodar
     private
 
     def setup(share, path)
-      @share  = (current_user.is_admin? ? Share : current_user.shares).where(:name => share).first
+      @share  = (current_user.is_uplodar_admin? ? Share : current_user.shares).where(:name => share).first
       @fsm    = FsManager.new(@share, path)
       rel_url = relative_url_root
       mnt_url = Rails.application.routes.named_routes[:uplodar].path

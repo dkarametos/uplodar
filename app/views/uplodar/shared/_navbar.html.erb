@@ -12,7 +12,7 @@
         </ul>
         <%= content_tag 'ul', :class => 'nav pull-right' do %>
           <% if user_signed_in? %>
-            <% if current_user.is_admin? %>
+            <% if current_user.is_uplodar_admin? %>
               <li><%= link_to "Events", events_path %></li>
               <li><%= link_to "Shares", shares_path %></li>
               <li><%= link_to "Users", main_app.users_path %></li>

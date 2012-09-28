@@ -13,8 +13,8 @@ module Uplodar
       if Uplodar.user_class
         Uplodar.user_class.send :include, Uplodar::DefaultPermissions
 
-        #Uplodar.user_class.has_many :forem_posts,  :class_name => "Uplodar::Post",   :foreign_key => "user_id"
-        #Uplodar.user_class.has_many :forem_topics, :class_name => "Uplodar::Topic",           :foreign_key => "user_id"
+        #Uplodar.user_class.has_many :forem_posts,  :class_name => "Uplodar::Post",  :foreign_key => "user_id"
+        #Uplodar.user_class.has_many :forem_topics, :class_name => "Uplodar::Topic", :foreign_key => "user_id"
 
         Uplodar.user_class.has_many :share_assignments, :class_name => "Uplodar::ShareAssignment", :foreign_key => "user_id", :dependent => :destroy
         Uplodar.user_class.has_many :shares, :through => :share_assignments, :class_name => "Uplodar::Share", :source => :share, :dependent => :destroy
@@ -28,3 +28,4 @@ require 'simple_form'
 require 'kaminari'
 require 'jquery-fileupload-rails'
 require 'twitter-bootstrap-rails'
+require 'cancan'

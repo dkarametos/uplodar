@@ -2,11 +2,11 @@ require_dependency "uplodar/application_controller"
 
 module Uplodar
   class HomeController < ApplicationController
-    before_filter :check_or_login
+    before_filter :authenticate_user!
 
     def index
-      @shares = current_user.is_admin? ? Share.all : current_user.shares
-      redirect_to browser_url(:share => @shares.first.name) if @shares.size == 1
+      @shares = current_user.is_uplodar_admin? ? Share.all : current_user.shares
+      #redirect_to browser_url(:share => @shares.first.name) if @shares.length == 1
     end
 
     private

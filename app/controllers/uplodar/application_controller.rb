@@ -6,11 +6,15 @@ module Uplodar
 
 
     def current_ability
-      Uplodar::Ability.new(forem_user)
+       @current_ability ||= UplodarAbility.new(current_user)
     end
 
-    rescue_from CanCan::AccessDenied do
-      redirect_to root_url, :alert => exception.message
+    rescue_from CanCan::AccessDenied do |e|
+      redirect_to root_url, :alert => e.message
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |e|
+      redirect_to root_url, :alert => "Page not found"
     end
   end
 end

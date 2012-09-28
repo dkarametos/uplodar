@@ -2,6 +2,7 @@ require_dependency "uplodar/application_controller"
 
 module Uplodar
   class AssignmentsController < ApplicationController
+    before_filter :authenticate_user!
     before_filter :get_user
 
     def index
